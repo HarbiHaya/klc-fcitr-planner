@@ -5,6 +5,8 @@ import pandas as pd
 from pathlib import Path
 from io import BytesIO
 from dotenv import load_dotenv
+import io
+
 
 load_dotenv()
 
