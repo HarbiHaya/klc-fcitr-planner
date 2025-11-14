@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KLC Study Planner</title>
+    <link rel="icon" type="png" href="static/images/favicon2.png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <img src="{{ url_for('static', filename='images/aiclogo.png') }}" alt="AI Club Logo" class="logo">
+            <div class="header-text">
+                <h1>KAUST Learning Community</h1>
+                <p class="subtitle"> An unofficial 35-block study plan, each with a dedicated notebook. Based on the internal roadmap originally made for enrolled members, now adapted for self-paced learning. </p>
+            </div>
+        </header>
+
+        <!-- Timeline Section -->
+        <section class="section">
+            <h2 class="section-title">Timeline</h2>
+            <div class="form-grid">
+                <div class="form-field">
+                    <label for="start-date">Start Date</label>
+                    <div class="datepicker-wrapper">
+                        <input type="text" id="start-date" class="datepicker" placeholder="Select start date" readonly>
+                        <svg class="calendar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label for="end-date">End Date</label>
+                    <div class="datepicker-wrapper">
+                        <input type="text" id="end-date" class="datepicker" placeholder="Select end date" readonly>
+                        <svg class="calendar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div id="timeline-info" class="info-banner hidden"></div>
+        </section>
+
+        <!-- Completed Modules Section -->
+        <section class="section">
+            <h2 class="section-title">Already Completed Modules (Optional)</h2>
+            <div class="dropdown-wrapper">
+                <div class="dropdown-toggle" id="modules-dropdown">
+                    <span class="dropdown-label">Select completed modules</span>
+                    <span class="dropdown-count" id="modules-count">0 selected</span>
+                    <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
+                <div class="dropdown-content" id="modules-content">
+                    <div class="dropdown-search-box">
+                        <input type="text" id="modules-search" placeholder="Search modules..." autocomplete="off">
+                    </div>
+                    <div class="dropdown-options" id="modules-options">
+                        {% for module in modules %}
+                        <label class="dropdown-option">
+                            <input type="checkbox" value="{{ module }}" class="module-check">
+                            <span class="option-check"></span>
+                            <span class="option-label">{{ module }}</span>
+                        </label>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Study Preferences Section -->
+        <section class="section">
+            <h2 class="section-title">Study Preferences</h2>
+            
+            <div class="form-field">
+                <label>Study Pace</label>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="pace" value="intensive">
+                        <span class="radio-text">Intensive</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="pace" value="balanced" checked>
+                        <span class="radio-text">Balanced</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="pace" value="relaxed">
+                        <span class="radio-text">Relaxed</span>
+                    </label>
+                </div>
+            </div>
+
+            
+        <!-- Generate Button -->
+        <button id="generate-btn" class="btn-primary">
+            Generate Study Plan
+        </button>
+
+        <!-- Loading State -->
+        <div id="loading" class="loading hidden">
+            <div class="spinner"></div>
+            <p class="loading-text">Creating your personalized schedule...</p>
+        </div>
+
+        <!-- Results -->
+        <div id="results" class="results hidden">
+            <!-- Summary Section -->
+            <section class="section">
+                <h2 class="section-title">Plan Summary</h2>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value" id="remaining-parts">-</div>
+                        <div class="metric-label">Remaining Blocks</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="study-pace">-</div>
+                        <div class="metric-label">Study Pace</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="total-parts">35</div>
+                        <div class="metric-label">Total Blocks</div>
+                    </div>
+                </div>
+                <div id="status-message" class="status-message hidden"></div>
+            </section>
+
+            <!-- Download Button -->
+            <button id="download-btn" class="btn-success">
+                Download Schedule (Excel)
+            </button>
+
+            <!-- Schedule Section -->
+            <section class="section">
+                <h2 class="section-title">Daily Schedule</h2>
+                <div id="schedule-container" class="schedule-container"></div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Developed by AI Club at FCITR</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    
+</body>
+</html>
