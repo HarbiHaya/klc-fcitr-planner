@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', template_folder='templates')
 
 PLAN_PATH = Path(__file__).parent / "ai_plan_klc25.xlsx"
 
