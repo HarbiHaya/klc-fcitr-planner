@@ -268,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const header = document.createElement('div');
             header.className = 'day-header';
-            header.textContent = `Day ${day.day_number} — ${dateStr} (${day.topics.length} topics)`;
+            header.textContent = `Day ${day.day_number} — ${dateStr} (${day.topics.length} blocks)`;
             dayDiv.appendChild(header);
             
             const content = document.createElement('div');

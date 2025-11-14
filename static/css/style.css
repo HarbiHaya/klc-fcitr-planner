@@ -945,6 +945,46 @@ body {
     font-size: 0.875rem;
 }
 
+.social-links {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+    transition: color 0.25s ease;
+}
+
+.social-icon:hover {
+    color: #9ca3af;
+}
+
+.icon-box {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;   /* centers vertically */
+    justify-content: center;
+}
+
+.icon-box svg {
+    width: 26px;
+    height: 26px;
+    display: block;
+}
+/* Make only the X icon slightly bigger */
+.x-box svg {
+    width: 30px;
+    height: 30px;
+}
+
+
+
 /* Utility */
 .hidden {
     display: none !important;
