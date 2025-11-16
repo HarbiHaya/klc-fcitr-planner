@@ -1057,3 +1057,90 @@ body {
 .hidden {
     display: none !important;
 }
+/* Responsive */
+@media (max-width: 1024px) {
+    .container {
+        padding: 1.5rem;
+    }
+    
+    .header {
+        padding: 1.5rem;
+    }
+    
+    .logo {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    .header {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .header h1 {
+        font-size: 1.25rem;
+    }
+    
+    .form-grid,
+    .metrics-grid,
+    .radio-group {
+        grid-template-columns: 1fr;
+    }
+    
+    .section {
+        padding: 1.25rem;
+    }
+    
+    .metric-value {
+        font-size: 1.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0.75rem;
+    }
+    
+    .header {
+        padding: 1rem;
+    }
+    
+    .header h1 {
+        font-size: 1.1rem;
+    }
+    
+    .subtitle {
+        font-size: 0.8rem;
+    }
+    
+    .section {
+        padding: 1rem;
+    }
+    
+    .btn-primary,
+    .btn-success {
+        padding: 0.875rem;
+        font-size: 0.875rem;
+    }
+    
+    .metric-value {
+        font-size: 1.5rem;
+    }
+    
+    .topic-item {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .colab-link {
+        margin-left: 0;
+        align-self: flex-start;
+    }
+}
