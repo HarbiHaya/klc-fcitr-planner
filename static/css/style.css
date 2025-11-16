@@ -935,81 +935,38 @@ body {
     display: block;
 }
 
-/* Footer */
+/* Footer Styles */
 .footer {
+    background: #1a1f3a;
+    color: #ffffff;
+    padding: 2rem 1rem;
+    margin-top: auto;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.footer-text {
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    color: rgba(255, 255, 255, 0.85);
     text-align: center;
-    color: #64748b;
-    padding: 2.5rem 0;
-    margin-top: 3rem;
-    border-top: 1px solid rgba(139, 92, 246, 0.15);
-    font-size: 0.875rem;
 }
 
 .social-links {
-    margin-top: 1rem;
     display: flex;
-    justify-content: center;
-    gap: 2rem;
+    gap: 1.25rem;
+    align-items: center;
 }
 
 .social-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #64748b;
-    transition: color 0.25s ease;
-}
-
-.social-icon:hover {
-    color: #9ca3af;
-}
-
-.icon-box {
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;   /* centers vertically */
-    justify-content: center;
-}
-
-.icon-box svg {
-    width: 26px;
-    height: 26px;
-    display: block;
-}
-/* Make only the X icon slightly bigger */
-.x-box svg {
-    width: 30px;
-    height: 30px;
-}
-
-
-
-/* Utility */
-.hidden {
-    display: none !important;
-}
-
-/* Responsive */
-@media (max-width: 1024px) {
-    .container {
-        padding: 1.5rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .header {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .form-grid,
-    .metrics-grid,
-    .radio-group {
-        grid-template-columns: 1fr;
-    }
-    
-    .section {
-        padding: 1.25rem;
-    }
-}
+    text-decoration: none;
+    transition: transform 0.3s ease;
+    display: block
